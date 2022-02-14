@@ -1,0 +1,4 @@
+Django==2.2.12
+mysqlclient==2.1.0
+django-3-jet==1.0.8
+google-api-python-client==1.4.1
