@@ -19,7 +19,9 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('jet/', include('jet.urls', 'jet')), 
     path('admin/', admin.site.urls),
+    path('api/v1/api-auth/', include('rest_framework.urls')),
+    path('api/v1/categories/', include('categories.urls')),
+    # path('', include('categories.urls'))
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

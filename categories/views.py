@@ -1,3 +1,35 @@
-from django.shortcuts import render
+from rest_framework.generics import ListAPIView, CreateAPIView,DestroyAPIView,UpdateAPIView
+from rest_framework.permissions import AllowAny
+from rest_framework import status
+from rest_framework.response import Response
+from categories.models import Categories
 
-# Create your views here.
+from categories.serializers import CategoriesSerializer
+
+class CategoriesCreateApiView(CreateAPIView):
+    serializer_class = CategoriesSerializer
+    permission_classes = (AllowAny,)
+    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+class CategoriesListApiView(ListAPIView):
+   queryset = Categories.objects.all()
+   serializer_class = CategoriesSerializer
+
+
+class CategoriesUpdtaeApiView(UpdateAPIView):
+   queryset = Categories.objects.all()
+   serializer_class = CategoriesSerializer
+   
+
+class CategoriesDeleteApiView(DestroyAPIView):
+   queryset = Categories.objects.all()
+   serializer_class = CategoriesSerializer
+   
+  
